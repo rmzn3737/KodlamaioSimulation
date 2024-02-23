@@ -28,5 +28,15 @@ namespace Business.Concrete
             return _courseDal.GetAll();
             //throw new NotImplementedException();
         }
+
+        public List<Course> GetAllByCategoryId(int id)
+        {
+            return _courseDal.GetAll(c => c.CategoryId == id);
+        }
+
+        public List<Course> GetByUnitPrice(decimal min, decimal max)
+        {
+            return _courseDal.GetAll(c => c.Price >= min && c.Price <= max);
+        }
     }
 }

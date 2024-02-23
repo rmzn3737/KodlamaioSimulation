@@ -10,5 +10,7 @@ namespace Business.Abstract
     public interface ICourseService
     {
         List<Course> GetAll();
+        List<Course> GetAllByCategoryId(int id);
+        List<Course> GetByUnitPrice(decimal min, decimal max);
     }
 }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DataAccsess.Abstract
 {
-    public interface ICourseDal:IEntityRepository<Course>
+    public interface ICategoryDal:IEntityRepository<Category>
     {
         
     }

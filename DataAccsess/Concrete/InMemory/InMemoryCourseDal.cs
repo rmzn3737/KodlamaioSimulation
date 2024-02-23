@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using DataAccsess.Abstract;
@@ -28,6 +29,16 @@ namespace DataAccsess.Concrete.InMemory
         public List<Course> GetAll()
         {
             return _courses; //throw new NotImplementedException();
+        }
+
+        public List<Course> GetAll(Expression<Func<Course, bool>> fliter = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Course Get(Expression<Func<Course, bool>> fliter)
+        {
+            throw new NotImplementedException();
         }
 
         public void Add(Course course)
