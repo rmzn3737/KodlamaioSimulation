@@ -13,6 +13,6 @@ namespace Entities.Concrete
         public int CategoryId { get; set; }
         public string CourseName { get; set; }
         public string CourseDescription { get; set; }
-        public int Price { get; set; }
+        public decimal Price { get; set; }
     }
 }

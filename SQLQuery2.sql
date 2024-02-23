@@ -1,10 +1,5 @@
-﻿-- Courses tablosuna veri ekleme
-INSERT INTO Instructors (InstructorId, InstructorName, InstructorLastName, InstructorEmail) 
-VALUES 
-(
-    1,
-    'Engin',
-    'Demiroğ',
-    'engindemirog@koklamaio'
-);
-
+﻿USE KodlamaioCourse;
+INSERT INTO Categories ( CategoryName)
+VALUES
+    ('Yazılım Geliştirici Yetiştirme'),
+    ('Programlamaya Giriş İçin Temel');
