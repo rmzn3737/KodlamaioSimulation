@@ -17,15 +17,15 @@ namespace DataAccsess.Concrete.EntityFramework
             using (CourseContext context = new CourseContext())
             {
                 return filter == null ? context.Set<Course>().ToList()
-                    :context.Set<Course>().ToList();
+                    :context.Set<Course>().Where(filter).ToList();
             }
         }
 
-        public Course Get(Expression<Func<Course, bool>> fliter)
+        public Course Get(Expression<Func<Course, bool>> filter)
         {
             using (CourseContext context= new CourseContext())
             {
-                return context.Set<Course>().SingleOrDefault(fliter);
+                return context.Set<Course>().SingleOrDefault(filter);
             }
         }
 

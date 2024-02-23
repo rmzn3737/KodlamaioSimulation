@@ -11,12 +11,12 @@ namespace DataAccsess.Concrete.EntityFramework
 {
     public class EfCategoryDal:ICategoryDal
     {
-        public List<Category> GetAll(Expression<Func<Category, bool>> fliter = null)
+        public List<Category> GetAll(Expression<Func<Category, bool>> filter = null)
         {
             throw new NotImplementedException();
         }
 
-        public Category Get(Expression<Func<Category, bool>> fliter)
+        public Category Get(Expression<Func<Category, bool>> filter)
         {
             throw new NotImplementedException();
         }
