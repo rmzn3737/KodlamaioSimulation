@@ -8,8 +8,14 @@ internal class Program
 {
     public static void Main(string[] args)
     {
+        //DTO= Data Transformation Object
         //CourseManager courseManager = new CourseManager(new InMemoryCourseDal());
-        //ProductTest();
+        CourseTest();
+        //CategoryTest();
+    }
+
+    private static void CategoryTest()
+    {
         CategoryManager categoryManager = new CategoryManager(new EfCategoryDal());//Şimdilik newliyoruz, ilerde IoC conteyner ile yapacağız.
         foreach (var category in categoryManager.GetAll())
         {
@@ -17,13 +23,13 @@ internal class Program
         }
     }
 
-    private static void ProductTest()
+    private static void CourseTest()
     {
         CourseManager courseManager = new CourseManager(new EfCourseDal());
 
-        foreach (var course in courseManager.GetAll())
+        foreach (var course in courseManager.GetCourseDetails())
         {
-            Console.WriteLine(course.CourseName);
+            Console.WriteLine(course.CourseName +" ***/*** "+course.CategoryName);
         }
     }
 }

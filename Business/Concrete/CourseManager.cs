@@ -7,6 +7,7 @@ using Business.Abstract;
 using DataAccsess.Abstract;
 using DataAccsess.Concrete.InMemory;
 using Entities.Concrete;
+using Entities.DTOs;
 
 namespace Business.Concrete
 {
@@ -37,6 +38,11 @@ namespace Business.Concrete
         public List<Course> GetByUnitPrice(decimal min, decimal max)
         {
             return _courseDal.GetAll(c => c.Price >= min && c.Price <= max);
+        }
+
+        public List<CourseDetailDto> GetCourseDetails()
+        {
+            return _courseDal.GetCourseDetails();
         }
     }
 }

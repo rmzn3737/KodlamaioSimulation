@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DataAccsess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 
 namespace DataAccsess.Concrete.InMemory
 {
@@ -78,6 +79,11 @@ namespace DataAccsess.Concrete.InMemory
             //Aynı listede Single da var o da belki olabilir, denemedim.
             _courses.Remove(courseToDelete);
             //throw new NotImplementedException();
+        }
+
+        public List<CourseDetailDto> GetCourseDetails()
+        {
+            throw new NotImplementedException();
         }
 
         public List<Course> GetAllByCategory(int categoryId)

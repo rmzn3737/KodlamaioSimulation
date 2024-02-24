@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Entities.Concrete;
+using Entities.DTOs;
 
 namespace Business.Abstract
 {
@@ -12,5 +13,6 @@ namespace Business.Abstract
         List<Course> GetAll();
         List<Course> GetAllByCategoryId(int id);
         List<Course> GetByUnitPrice(decimal min, decimal max);
+        List<CourseDetailDto> GetCourseDetails();
     }
 }
