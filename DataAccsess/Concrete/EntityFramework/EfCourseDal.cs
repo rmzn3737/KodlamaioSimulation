@@ -10,53 +10,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DataAccsess.Concrete.EntityFramework
 {
-    public class EfCourseDal:ICourseDal
+    public class EfCourseDal:EfEntityRepositoryBase<Course, CourseContext>,ICourseDal
     {
-        public List<Course> GetAll(Expression<Func<Course, bool>> filter = null)
-        {
-            using (CourseContext context = new CourseContext())
-            {
-                return filter == null ? context.Set<Course>().ToList()
-                    :context.Set<Course>().Where(filter).ToList();
-            }
-        }
-
-        public Course Get(Expression<Func<Course, bool>> filter)
-        {
-            using (CourseContext context= new CourseContext())
-            {
-                return context.Set<Course>().SingleOrDefault(filter);
-            }
-        }
-
-        public void Add(Course entity)
-        {
-            using (CourseContext context=new CourseContext())
-            {
-                var addedEntity=context.Entry(entity);
-                addedEntity.State = EntityState.Added;
-                context.SaveChanges();
-            }
-        }
-
-        public void Update(Course entity)
-        {
-            using (CourseContext context = new CourseContext())
-            {
-                var updatedEntity = context.Entry(entity);
-                updatedEntity.State = EntityState.Modified;
-                context.SaveChanges();
-            }
-        }
-
-        public void Delete(Course entity)
-        {
-            using (CourseContext context = new CourseContext())
-            {
-                var deletedEntity = context.Entry(entity);
-                deletedEntity.State = EntityState.Deleted;
-                context.SaveChanges();
-            }
-        }
+        
     }
 }

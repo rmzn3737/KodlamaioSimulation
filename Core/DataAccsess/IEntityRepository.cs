@@ -1,4 +1,4 @@
-﻿using Entities.Concrete;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Entities.Abstract;
 
-namespace DataAccsess.Abstract
+
+//Core katmanı diğer katmanları referans alma, alırsa oraya bağımlı olur.
+namespace Core.DataAccsess
 {
     public interface IEntityRepository<T> where T: class,IEntity,new()
     {

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Entities.Abstract;
 
+
 namespace Entities.Concrete
 {
     public class Course:IEntity
