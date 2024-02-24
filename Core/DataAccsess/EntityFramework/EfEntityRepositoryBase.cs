@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Core.DataAccsess.EntityFramework
 {
-    internal class EfEntityRepositoryBase<TEntity,TContext>:IEntityRepository<TEntity>
+    public class EfEntityRepositoryBase<TEntity,TContext>:IEntityRepository<TEntity>
     where TEntity : class,IEntity, new()//Generic Constraintleri verdik where ile
     where TContext:DbContext, new()
     {
