@@ -27,9 +27,23 @@ internal class Program
     {
         CourseManager courseManager = new CourseManager(new EfCourseDal());
 
-        foreach (var course in courseManager.GetCourseDetails())
+        var result = courseManager.GetCourseDetails();
+
+        if (result.Succses==true)//Seçtiğin kategoriye uygun kurs varsa ona göre bir ekran yapıyor.
         {
-            Console.WriteLine(course.CourseName +" ***/*** "+course.CategoryName);
+
+            //*****Dikkat*****
+            //Sistem bakımda yazısını iptal edip ürünleri lsitelemek için CourseManager daki GetCourseDetails metodunun içindeki if bloğunu yorum satırı yapalım.
+            foreach (var course in result.Data)
+            {
+                Console.WriteLine(course.CourseName + " ***/*** " + course.CategoryName);
+            }
         }
+        else//Seçtiğin kategoriye uygun kurs yoksa ona göre bir ekran yapıyor.
+        {
+            Console.WriteLine(result.Message);
+        }
+
+        
     }
 }
