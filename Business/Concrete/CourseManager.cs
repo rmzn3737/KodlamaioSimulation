@@ -53,7 +53,7 @@ namespace Business.Concrete
 
         public IDataResult<List<CourseDetailDto>>  GetCourseDetails()
         {
-            if (DateTime.Now.Hour == 18)//Yani sistem bu saatlerde bakımda.Hoca yapmayın demişti!!!
+            if (DateTime.Now.Hour == 4)//Yani sistem bu saatlerde bakımda.Hoca yapmayın demişti!!!
             {
                 return new ErrorDataResult<List<CourseDetailDto>>(Messages.MaintenanceTime);
             }
@@ -64,7 +64,7 @@ namespace Business.Concrete
         {
             //Business, yani iş kuralları buraya yazılacak, yani ürünü eklemeden önce yapılacak kontroller.
 
-            if (course.CourseName.Length<2==false)//Biz burada bu şekilde yaptık ancak sektörde try catch bloğuyla da yapan kurumlar var, her iki yaklaşım da kullanılıyor.
+            if (course.CourseName.Length<2==true)//Biz burada bu şekilde yaptık ancak sektörde try catch bloğuyla da yapan kurumlar var, her iki yaklaşım da kullanılıyor.
             {
                 return new ErrorResult(Messages.CourseNameInValid);//Kurs ismi en az 2 karakter olmalıdır."İleride stringi burada yamayacağız, magic strin demek oluyor bu.
             }
