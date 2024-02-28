@@ -70,7 +70,7 @@ namespace Business.Concrete
             }
             return new SuccessDataResult<List<CourseDetailDto>>(_courseDal.GetCourseDetails()) ;
         }
-
+        //Claim= İddia etmek. Encryption, Hashing, karşı taraf okuyamasın diye parolayı hasleriz.Salting, tuzlama. Encryption, geri döünüşü olan veri.
         [ValidationAspect(typeof(CourseValidator))]
         public IResult Add(Course course)
         {
