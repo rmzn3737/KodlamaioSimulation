@@ -13,5 +13,8 @@ namespace Business.Constants
         public static string CourseNameInValid = "Kurs ismi geçersiz.";//CourseInValid bunun gibi public fieldlar pascal casing yazılır.
         public static string MaintenanceTime ="Sistem bakımda.";
         public static string CoursesListed ="Ürünler listelendi.";
+        public static string CourseCountOfCategoryError="Bir kategoride en fazla 10 ürün olabilir.";
+        public static string CourseNameAlreadyExist="Bu isimde zaten başka bir ürün var.";
+        internal static string CategoryLimitExceded="Kategori limiti aşıldığı için kurs eklenemedi.";
     }
 }

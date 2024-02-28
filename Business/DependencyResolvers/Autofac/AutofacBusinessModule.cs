@@ -20,6 +20,9 @@ namespace Business.DependencyResolvers.Autofac
         {
             builder.RegisterType<CourseManager>().As<ICourseService>().SingleInstance();//Bu kod dün program.cs de yazdığımız şu builder.Services.AddSingleton<ICourseService,CourseManager>(); kodun karşılığı, yani Autofac versiyondur.
             builder.RegisterType<EfCourseDal>().As<ICourseDal>().SingleInstance();
+            builder.RegisterType<CategoryManager>().As<ICategoryService>().SingleInstance();
+            builder.RegisterType<EfCategoryDal>().As<ICategoryDal>().SingleInstance();
+
 
             var assembly = System.Reflection.Assembly.GetExecutingAssembly();
 

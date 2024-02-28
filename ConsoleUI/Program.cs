@@ -17,7 +17,7 @@ internal class Program
     private static void CategoryTest()
     {
         CategoryManager categoryManager = new CategoryManager(new EfCategoryDal());//Şimdilik newliyoruz, ilerde IoC conteyner ile yapacağız.
-        foreach (var category in categoryManager.GetAll())
+        foreach (var category in categoryManager.GetAll().Data)
         {
             Console.WriteLine(category.CategoryName);
         }
@@ -25,7 +25,7 @@ internal class Program
 
     private static void CourseTest()
     {
-        CourseManager courseManager = new CourseManager(new EfCourseDal());
+        CourseManager courseManager = new CourseManager(new EfCourseDal(),new CategoryManager(new EfCategoryDal()));
 
         var result = courseManager.GetCourseDetails();
 

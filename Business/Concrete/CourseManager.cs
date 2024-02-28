@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Net;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
 using Business.Abstract;
@@ -10,6 +11,7 @@ using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Validation;
+using Core.Utilities.Business;
 using Core.Utilities.Results;
 using DataAccsess.Abstract;
 using DataAccsess.Concrete.InMemory;
@@ -23,10 +25,12 @@ namespace Business.Concrete
     public class CourseManager:ICourseService
     {
         ICourseDal _courseDal;
+        private ICategoryService _categoryService;
 
-        public CourseManager(ICourseDal courseDal)
+        public CourseManager(ICourseDal courseDal, ICategoryService categoryService)
         {
             _courseDal = courseDal;
+            _categoryService= categoryService;
         }
 
         public IDataResult<List<Course>> GetAll()
@@ -71,7 +75,7 @@ namespace Business.Concrete
         public IResult Add(Course course)
         {
             ////Business, yani iş kuralları buraya yazılacak, yani ürünü eklemeden önce yapılacak kontroller.
-            
+
             //if (course.CourseName.Length<2==true)//Biz burada bu şekilde yaptık ancak sektörde try catch bloğuyla da yapan kurumlar var, her iki yaklaşım da kullanılıyor.
             //{
             //    return new ErrorResult(Messages.CourseNameInValid);//Kurs ismi en az 2 karakter olmalıdır."İleride stringi burada yamayacağız, magic strin demek oluyor bu.
@@ -94,8 +98,80 @@ namespace Business.Concrete
             //Yetkilendirme
 
             //ValidationTool.Validate(new CourseValidator(),course);
+            //Bir kategoride en fazla 10 ürün olabilir.
+            //Aynı isimde ürün eklenemez.
+            //Eğer kategori sayısı 15'i geçtiyse sisteme yeni ürün eklenemez.
+            //Alttaki IResult result kurala uymayan result.
+            IResult result = BusinessRules.Run(CheckIfCourseCountOfCategoryCorrect(course.CategoryId),
+                CheckIfCourseCountOfCategoryCorrect(course.CategoryId),CheckIfCategoryLimitExceded());//Daha sonra yeni bir kural gelirse buraya , ile eklemek yeterli.
+
+            if (result != null)//Kurala uymayan bir durum oluşmuşsa.
+            {
+                return result;
+            }
+            _courseDal.Add(course);
+            return new SuccessResult(Messages.CourseAdded);
+
+            //if (CheckIfCourseCountOfCategoryCorrect(course.CategoryId).Succses)
+            //{
+            //    if (CheckIfCourseNameExists(course.CourseName).Succses)
+            //    {
+                    
+            //    }
+                
+            //}
+            //return new ErrorResult();
+
+        }
+
+        public IResult Update(Course course)
+        {
+            var result = _courseDal.GetAll(c => c.CategoryId == course.CategoryId).Count;
+            if (result >= 10)
+            {
+                
+                return new ErrorResult(Messages.CourseCountOfCategoryError);
+            }
             _courseDal.Add(course);
             return new SuccessResult(Messages.CourseAdded);
         }
-    }
+
+        private IResult CheckIfCourseCountOfCategoryCorrect(int categoryId)
+        {
+            //select count(*) from courses where categoryId=1; alttaki koda arka planda bunu yapıyor.
+            var result = _courseDal.GetAll(c => c.CategoryId == categoryId).Count;
+            if (result >= 15)
+            {
+                return new ErrorResult(Messages.CourseCountOfCategoryError);
+            }
+
+            return new SuccessResult();
+        }
+
+        private IResult CheckIfCourseNameExists(string courseName)
+        {
+            //select count(*) from courses where categoryId=1; alttaki koda arka planda bunu yapıyor.
+            var result = _courseDal.GetAll(c => c.CourseName == courseName).Any();//Any() var mı demek.
+            if (result)
+            {
+
+                return new ErrorResult(Messages.CourseNameAlreadyExist);//Böyle bir ismi zaten var demek.
+            }
+
+            return new SuccessResult();
+        }
+
+        private IResult CheckIfCategoryLimitExceded()
+        {
+            var result = _categoryService.GetAll();
+            if (result.Data.Count>15)
+            {
+                return new ErrorResult(Messages.CategoryLimitExceded);
+            }
+
+            return new SuccessResult();
+        }
+    } 
+
+    
 }

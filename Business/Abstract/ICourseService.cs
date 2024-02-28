@@ -18,5 +18,6 @@ namespace Business.Abstract
         IDataResult<Course> GetByID(int courseId);//Bir siteye girdik ve bir ürünün detayına bakmak istedik, tıkladığımızda sayfa sadece o ürünün bilgilerini içerecek şekilde güncelleniyor, işte o zaman bu metodu çağırıyoruz.
         IResult Add(Course course);
         //RESTFUL ------>HTTP
+        IResult Update(Course course);
     }
 }

@@ -9,7 +9,9 @@ using DataAccsess.Concrete.EntityFramework;
 
 
 
-var builder = WebApplication.CreateBuilder(args); builder.Host
+var builder = WebApplication.CreateBuilder(args); 
+
+builder.Host
     .UseServiceProviderFactory(new AutofacServiceProviderFactory())
     .ConfigureContainer<ContainerBuilder>(builder =>
     {

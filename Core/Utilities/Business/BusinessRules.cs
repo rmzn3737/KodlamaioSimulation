@@ -1,0 +1,25 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Core.Utilities.Results;
+
+namespace Core.Utilities.Business
+{
+    public class BusinessRules
+    {
+        public static IResult Run(params IResult[] logics)//logics iş kuralları
+        {
+            foreach (var logic in logics)
+            {
+                if (!logic.Succses)
+                {
+                    return logic;
+                }
+
+            }
+            return null;
+        }
+    }
+}
