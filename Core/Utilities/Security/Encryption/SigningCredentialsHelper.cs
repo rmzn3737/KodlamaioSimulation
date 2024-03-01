@@ -5,11 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Core.Utilities.Security.Encrytion
+namespace Core.Utilities.Security.Encryption
 {
     public class SigningCredentialsHelper
     {
-        public SigningCredentials CreateSigningCredentials(SecurityKey securityKey)//WebApi nin kullanabilece JWT lerin oluşturulabilmesi için Elimizdeki yani kullanıcı adı parola bir Credentials dır. Burada elimizde SecurityKey var, o sisteme kullanabilmemiz için bir tane anahtara ihtiyacımız vardı ya credential dediğimiz bizim anahtarımız oluyor, o yüzden burada parametre olarak elimizdeki securityke securitykey formatında vereceğiz ve o da bize o imzalama nesnesi döndürüyor olacak. 
+        public static SigningCredentials CreateSigningCredentials(SecurityKey securityKey)//WebApi nin kullanabilece JWT lerin oluşturulabilmesi için Elimizdeki yani kullanıcı adı parola bir Credentials dır. Burada elimizde SecurityKey var, o sisteme kullanabilmemiz için bir tane anahtara ihtiyacımız vardı ya credential dediğimiz bizim anahtarımız oluyor, o yüzden burada parametre olarak elimizdeki securityke securitykey formatında vereceğiz ve o da bize o imzalama nesnesi döndürüyor olacak. 
         {
             return new SigningCredentials(securityKey,SecurityAlgorithms.HmacSha512Signature);//Asp net e sen şimdi bir hashing işlemi yapacaksın anahtar olarak parametrenin içinde verdiğim bu securityKey kullan, şifreleme olarak da güvenlik algoritmalarından securityAlgorithms.HmacSha512Signature yi kullan diyoruz. Aslında bu sınıf web apiye, asp nete hangi anahtarı ve hangi algoritmayı kullanacağı bilgisini veriyor.
         }
