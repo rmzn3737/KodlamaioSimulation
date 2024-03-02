@@ -3,10 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Azure.Core;
+using Core.Entities.Concrete;
 
 namespace Core.Utilities.Security.JWT
 {
-    internal interface ITokenHelper
+    public interface ITokenHelper
     {
+        AccessToken
+            CreateToken(User user,
+                List<OperationClaim> operationClaims); //User için token oluştur ve içine List<OperationClaim> yetkilerini koy.
     }
 }
