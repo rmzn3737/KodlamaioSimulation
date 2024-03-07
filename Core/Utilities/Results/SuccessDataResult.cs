@@ -20,7 +20,11 @@ namespace Core.Utilities.Results
         }
 
         public SuccessDataResult(string message):base(default,true,message)
-        {
+        {//Hata burada, yanlış constuctor seçmiş olabilirim,
+         //public SuccessDataResult(T data, string message):base(data,true,message)
+         // {
+         // 
+         // } bu seçilmeli.
             
         }
 

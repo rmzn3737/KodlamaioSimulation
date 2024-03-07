@@ -38,7 +38,7 @@ namespace Business.Concrete
                 Status = true
             };
             _userService.Add(user);
-            return new SuccessDataResult<User>("Kayıt oldu.");//(user, Messages.UserRegistered) refactor edeceğiz.
+            return new SuccessDataResult<User>(user,"Kayıt oldu.");//(user, Messages.UserRegistered) refactor edeceğiz.//Burada user ı constrctora vermeyi unutmuşum onun için register esnasında jwt alamıyormuş.!!!
         }
 
         public IDataResult<User> Login(UserForLoginDto userForLoginDto)
@@ -53,8 +53,9 @@ namespace Business.Concrete
             {
                 return new ErrorDataResult<User>("Parola hatası");//(Messages.PasswordError);
             }
-
-            return new SuccessDataResult<User>("Giriş işlmemi başarılı.");//(userToCheck, Messages.SuccessfulLogin);
+            return new SuccessDataResult<User>(userToCheck, "Başarılı giriş");//Hata bu satırdan kaynaklı olabilir, burayı Enfin hocanın kodundan aldım, alttakini ben yazmışım.
+            //return new SuccessDataResult<User>("Giriş işlemi başarılı.");
+            //(userToCheck, Messages.SuccessfulLogin);
         }
 
         public IResult UserExists(string email)
@@ -70,7 +71,8 @@ namespace Business.Concrete
         {
             var claims = _userService.GetClaims(user);
             var accessToken = _tokenHelper.CreateToken(user, claims);
-            return new SuccessDataResult<AccessToken>("AccsessToken oluşturuldu.");//(accessToken, Messages.AccessTokenCreated);
+            return new SuccessDataResult<AccessToken>(accessToken,"AccsessToken oluşturuldu.");//(accessToken, Messages.AccessTokenCreated);
+            //Bir hatamız da bu satırda varmış, newlerken accessToken ı vermeyi unutmuşuz, muhtemelen ondan dolayı token oluşturamadı. !!!
         }
     }
 }

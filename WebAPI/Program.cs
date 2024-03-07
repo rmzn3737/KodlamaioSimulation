@@ -53,6 +53,12 @@ builder.Services.AddDependencyResolvers(new ICoreModule[]//Yazdýðýmýz extensions
 {
     new CoreModule()//Daha sonra baþka modüllerde eklersek buraya virgül koyup yanýna ekleyebileceðiz.
 });
+
+builder.Services.AddLogging(builder =>
+{
+    builder.AddConsole();
+    builder.AddDebug();
+});
 //ServiceTool.Create(builder.Services);///Emin dðilim.
 //services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 //    .AddJwtBearer(options =>
@@ -86,13 +92,32 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
-app.UseRouting();//ben ekledim. silinecek.
+//app.UseHttpsRedirection();
+//app.UseRouting();//ben ekledim. silinecek.
 
-app.UseAuthentication();//Asp.Net yaþam döngüsünde hangi yapýlarýn sýrasýyla devreye gireceðini söylüyorsunuz. Önceden bunlar burada tanýmlý gelip ihtiyacýnýz olsun ya da olmasýn devreye giriyormuþ ama artýk öyle deðilmiþ. Þimdi sizin neye ihtiyacýnýz varsa onu o araya sokuyorsunuz Middleware denilmesinin sebebi o.
+//app.UseAuthentication();//Asp.Net yaþam döngüsünde hangi yapýlarýn sýrasýyla devreye gireceðini söylüyorsunuz. Önceden bunlar burada tanýmlý gelip ihtiyacýnýz olsun ya da olmasýn devreye giriyormuþ ama artýk öyle deðilmiþ. Þimdi sizin neye ihtiyacýnýz varsa onu o araya sokuyorsunuz Middleware denilmesinin sebebi o.
+
+//app.UseAuthorization();
+
+//app.MapControllers();
+
+//app.Run();
+
+//////
+//app.ConfigureCustomExceptionMiddleware();
+
+app.UseCors(builder => builder.WithOrigins("http://localhost:4200").AllowAnyHeader());
+
+app.UseHttpsRedirection();
+
+app.UseRouting();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 
-app.MapControllers();
-
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+});
 app.Run();

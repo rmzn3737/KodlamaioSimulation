@@ -19,6 +19,7 @@ namespace Business.Concrete
         }
 
         public List<OperationClaim> GetClaims(User user)//UserDal dan claimleleri çekiyor.
+        
         {
             return _userDal.GetClaims(user);
         }

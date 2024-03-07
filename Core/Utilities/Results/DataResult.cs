@@ -10,7 +10,7 @@ namespace Core.Utilities.Results
     {
         public DataResult(T data, bool success, string message):base(success,message)
         {
-            Data=data;
+            Data=data; //Bu blokta data=null alıyoruz çünkü yanlış constructordan enjekte etmişiz. Bulup çözeceğiz.
         }
 
         public DataResult(T data, bool success) : base(success)
