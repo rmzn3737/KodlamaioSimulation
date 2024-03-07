@@ -10,7 +10,10 @@ using Core.Extensions;
 using Core.Utilities.IoC;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
+<<<<<<< HEAD
 //using Castle.DynamicProxy;
+=======
+>>>>>>> 38c9e1766a1f7d11db1ba62717a781d30cc0a39d
 
 namespace Business.BusinessAspects.Autofac
 {
@@ -29,14 +32,22 @@ namespace Business.BusinessAspects.Autofac
         protected override void OnBefore(IInvocation invocation)
         {
             var roleClaims = _httpContextAccessor.HttpContext.User.ClaimRoles();
+<<<<<<< HEAD
             foreach (var role in _roles)//Kullanıcının rollerini gez, claimi varsa onbeforeu bitir, metodu döndür. Eğer yoksa AuthorizationDenied yetkin yok hatası döndür.
+=======
+            foreach (var role in _roles)
+>>>>>>> 38c9e1766a1f7d11db1ba62717a781d30cc0a39d
             {
                 if (roleClaims.Contains(role))
                 {
                     return;
                 }
             }
+<<<<<<< HEAD
             throw new Exception(Messages.AuthorizationDenied);//AuthorizationDenied yetkin yok hatası.
+=======
+            throw new Exception(Messages.AuthorizationDenied);
+>>>>>>> 38c9e1766a1f7d11db1ba62717a781d30cc0a39d
         }
     }
 }

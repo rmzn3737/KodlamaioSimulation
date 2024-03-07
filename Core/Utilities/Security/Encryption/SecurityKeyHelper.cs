@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.IdentityModel.Tokens;
 
-namespace Core.Utilities.Security.Encrytion
+namespace Core.Utilities.Security.Encryption
 {
     //Şifrelereme işlemleri olan her yerde bunları byt[] arrye şeklinde asp.net in anlayacağı şekilde vermemiz gerekiyor, basit bir string ile password oluşturamıyoruz.
     public class SecurityKeyHelper
