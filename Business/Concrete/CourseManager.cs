@@ -10,6 +10,7 @@ using Business.Abstract;
 using Business.BusinessAspects.Autofac;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Caching;
 using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Business;
@@ -34,25 +35,26 @@ namespace Business.Concrete
             _categoryService= categoryService;
         }
         //[CacheAspect]//Microsft'un inMemeoryCache ini kullanacağız. Ürünün güncellenmesi veya silinmesi durumlarında da cche in uçurulmasını isteyeceğiz.
+        [CacheAspect]
         public IDataResult<List<Course>> GetAll()
         {
             
             //İş Kodları
             //Yetkisi var mı ? İf kodları
             //Kural bir iş sınıfı başka sınıfları newlemez.
-            if (DateTime.Now.Hour==16)//Yani sistem bu saatlerde bakımda.
-            {
-                return new ErrorDataResult<List<Course>>(Messages.MaintenanceTime);
-            }
+            //if (DateTime.Now.Hour==16)//Yani sistem bu saatlerde bakımda.
+            //{
+            //    return new ErrorDataResult<List<Course>>(Messages.MaintenanceTime);
+            //}
             return new SuccessDataResult<List<Course>>(_courseDal.GetAll(),Messages.CoursesListed) ;
             //throw new NotImplementedException();
         }
-
+        [CacheAspect]
         public IDataResult<List<Course>> GetAllByCategoryId(int id)
         {
             return new SuccessDataResult<List<Course>>(_courseDal.GetAll(c => c.CategoryId == id));
         }
-
+        [CacheAspect]
         public IDataResult<Course> GetByID(int courseId)
         {
             return new SuccessDataResult<Course>(_courseDal.Get(c => c.CourseId == courseId)) ;
@@ -65,7 +67,7 @@ namespace Business.Concrete
 
         public IDataResult<List<CourseDetailDto>>  GetCourseDetails()
         {
-            if (DateTime.Now.Hour == 4)//Yani sistem bu saatlerde bakımda.Hoca yapmayın demişti!!!
+            if (DateTime.Now.Hour == 23)//Yani sistem bu saatlerde bakımda.Hoca yapmayın demişti!!!
             {
                 return new ErrorDataResult<List<CourseDetailDto>>(Messages.MaintenanceTime);
             }
@@ -74,7 +76,7 @@ namespace Business.Concrete
         //Claim= İddia etmek. Encryption, Hashing, karşı taraf okuyamasın diye parolayı hasleriz.Salting, tuzlama. Encryption, geri döünüşü olan veri.
         [SecuredOperation("course.add,admin")]//course.add,admin" bunlara key deniliyor ve keylerle çalışırken küçük harf çalışmalıyız.
         [ValidationAspect(typeof(CourseValidator))]
-        
+        [CacheRemoveAspect("ICourseServise.Get")]
         public IResult Add(Course course)
         {
             ////Business, yani iş kuralları buraya yazılacak, yani ürünü eklemeden önce yapılacak kontroller.
@@ -127,6 +129,7 @@ namespace Business.Concrete
 
         }
 
+        [CacheRemoveAspect("ICourseServise.Get")]
         public IResult Update(Course course)
         {
             var result = _courseDal.GetAll(c => c.CategoryId == course.CategoryId).Count;
@@ -138,6 +141,12 @@ namespace Business.Concrete
             _courseDal.Add(course);
             return new SuccessResult(Messages.CourseAdded);
         }
+
+        //[TransactionalScopeAspect]
+        //public IResult AddTransactionalTest(Course course)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
         private IResult CheckIfCourseCountOfCategoryCorrect(int categoryId)
         {

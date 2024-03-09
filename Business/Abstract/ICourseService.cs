@@ -19,5 +19,7 @@ namespace Business.Abstract
         IResult Add(Course course);
         //RESTFUL ------>HTTP
         IResult Update(Course course);
+
+        //IResult AddTransactionalTest(Course course);//Transactional uygulamalarda tutarlılığı korumak için yapılan bir yöntem. Örnek banka seabından para çekme işlemleri.
     }
 }
