@@ -18,7 +18,7 @@ namespace Core.DependencyResolvers
         {
             serviceCollection.AddMemoryCache();//Bunu eklediğimiz zaman MemoryCacheManager daki IMemoryCache _memoryCache; in bir karşılı olmuş oluyor.
             serviceCollection.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();//???
-            serviceCollection.AddSingleton<ICacheManager, MemoryCacheManager>();//Daha sonra sistemi Rdis'e geçirmek istediğimizde Redis klasöründeki gerekli kodları yazıp RedisCacheManager yazmamız yeterli.
+            serviceCollection.AddSingleton<ICacheManager, MemoryCacheManager>();//Daha sonra sistemi Rdis'e geçirmek istediğimizde Redis klasöründeki gerekli kodları yazıp RedisCacheManager yazmamız yeterli...
         }
     }
 }
