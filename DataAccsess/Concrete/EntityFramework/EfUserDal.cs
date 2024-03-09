@@ -33,7 +33,9 @@ namespace DataAccsess.Concrete.EntityFramework
                     //}
 
                     return result.ToList();
+
                 }
+
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex.ToString());

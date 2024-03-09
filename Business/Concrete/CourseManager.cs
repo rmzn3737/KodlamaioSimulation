@@ -7,6 +7,7 @@ using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
 using Business.Abstract;
+using Business.BusinessAspects.Autofac;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
@@ -32,7 +33,7 @@ namespace Business.Concrete
             _courseDal = courseDal;
             _categoryService= categoryService;
         }
-
+        //[CacheAspect]//Microsft'un inMemeoryCache ini kullanacağız. Ürünün güncellenmesi veya silinmesi durumlarında da cche in uçurulmasını isteyeceğiz.
         public IDataResult<List<Course>> GetAll()
         {
             
@@ -71,7 +72,9 @@ namespace Business.Concrete
             return new SuccessDataResult<List<CourseDetailDto>>(_courseDal.GetCourseDetails()) ;
         }
         //Claim= İddia etmek. Encryption, Hashing, karşı taraf okuyamasın diye parolayı hasleriz.Salting, tuzlama. Encryption, geri döünüşü olan veri.
+        [SecuredOperation("course.add,admin")]//course.add,admin" bunlara key deniliyor ve keylerle çalışırken küçük harf çalışmalıyız.
         [ValidationAspect(typeof(CourseValidator))]
+        
         public IResult Add(Course course)
         {
             ////Business, yani iş kuralları buraya yazılacak, yani ürünü eklemeden önce yapılacak kontroller.
